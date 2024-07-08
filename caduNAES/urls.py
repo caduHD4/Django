@@ -23,5 +23,5 @@ urlpatterns = [
 
     # importa as urls do app 'paginas'
     path('', include ("paginas.urls")), #importa as urls
-    path('', include ("cadastros.urls")), #importa as urls
+    path('cadastros/', include ("cadastros.urls")), #importa as urls
 ]

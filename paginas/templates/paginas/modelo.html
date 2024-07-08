@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>One Page Wonder - Start Bootstrap Template</title>
+    <title>Caduzim</title>
     <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -25,7 +25,7 @@
 
 <body>
 
-
+    <div class="container">
     {% block navegacao %}
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
         <div class="container px-5">
@@ -40,7 +40,7 @@
         </div>
     </nav>
     {% endblock %}
-
+    </div>
 
     {% block content %}
     <header class="masthead text-center text-white">
@@ -105,13 +105,13 @@
     </section>
     {% endblock %}
 
-
     {% block rodape %}  <footer class="py-5 bg-black">
         <div class="container px-5">
           <p class="m-0 text-center text-white small">Copyright &copy; CADUHD4 2024</p>
         </div>
       </footer>
-      {% endblock %}
+    {% endblock %}
+
 
     </body>
 </html>
