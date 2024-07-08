@@ -1,0 +1,20 @@
+{% extends "paginas/modelo.html" %}
+
+{% load static %}
+
+{% block content %}
+<h1 style="margin-top: 80px;">Cadastro </h1>
+<p class = "lead">
+    Preencha todos os campos obrigatórios.
+</p>
+
+<hr>
+
+<form action="" method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+</form>
+{% endblock %}
