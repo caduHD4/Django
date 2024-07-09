@@ -1,0 +1,18 @@
+{% extends "paginas/modelo.html" %}
+
+{% load static %}
+
+{% block content %}
+<h1 style="margin-top: 80px;">Confirmar Exclusão</h1>
+<p class="lead">
+    Tem certeza que deseja excluir "{{ object }}"?
+</p>
+
+<hr>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Confirmar</button>
+    <a href="{% url 'inicio' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}
