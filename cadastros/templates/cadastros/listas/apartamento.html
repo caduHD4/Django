@@ -3,9 +3,10 @@
 {% load static %}
 
 {% block content %}
+<div style="margin-top: 80px;"></div>
 <h3>Lista de apartamentos registrados</h3>
 <hr>
-<div class="table-responsive">
+<div class="table-responsive mt-4">
     <table class="table table-striped">
         <tr>
             <th>Nome</th>
@@ -18,8 +19,8 @@
             <td>{{apartamentos.numero }} </td>
             <td>{{apartamentos.bloco }} </td>
             <td>
-                Editar
-                Excluir 
+                <a href="{% url 'update-apartamento' apartamentos.pk %}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                <a href="{% url 'delete-apartamento' apartamentos.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
             </td>
         </tr>
 

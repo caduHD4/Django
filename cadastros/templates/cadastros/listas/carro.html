@@ -1,0 +1,37 @@
+{% extends "paginas/modelo.html" %}
+
+{% load static %}
+
+{% block content %}
+<div style="margin-top: 80px;"></div>
+<h3>Lista de carros registrados</h3>
+<hr>
+<div class="table-responsive mt-4">
+    <table class="table table-striped">
+        <tr>
+            <th>Placa</th>
+            <th>Modelo</th>
+            <th>Cor</th>
+            <th>Apartamento</th>
+            <th>Opções</th>
+        </tr>
+
+        {% for carro in object_list %}
+        <tr>
+            <td>{{ carro.placa }}</td>
+            <td>{{ carro.modelo }}</td>
+            <td>{{ carro.cor }}</td>
+            <td>{{ carro.apartamento }}</td>
+            <td>
+                <a href="{% url 'update-carro' carro.pk %}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                <a href="{% url 'delete-carro' carro.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">Nenhum carro registrado.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

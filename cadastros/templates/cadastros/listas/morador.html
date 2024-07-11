@@ -1,0 +1,43 @@
+{% extends "paginas/modelo.html" %}
+
+{% load static %}
+
+{% block content %}
+<div style="margin-top: 80px;"></div>
+<h3>Lista de moradores registrados</h3>
+<hr>
+<div class="table-responsive mt-4">
+    <table class="table table-striped">
+        <tr>
+            <th>Nome Completo</th>
+            <th>Nascimento</th>
+            <th>CPF</th>
+            <th>Email</th>
+            <th>Cidade</th>
+            <th>Apartamento</th>
+            <th>Possui Animais</th>
+            <th>Opções</th>
+        </tr>
+
+        {% for morador in object_list %}
+        <tr>
+            <td>{{ morador.nome_completo }}</td>
+            <td>{{ morador.nascimento }}</td>
+            <td>{{ morador.cpf }}</td>
+            <td>{{ morador.email }}</td>
+            <td>{{ morador.cidade }}</td>
+            <td>{{ morador.apartamento }}</td>
+            <td>{{ morador.possui_animais }}</td>
+            <td>
+                <a href="{% url 'update-morador' morador.pk %}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                <a href="{% url 'delete-morador' morador.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="8">Nenhum morador registrado.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
