@@ -60,7 +60,11 @@
                                 {{ request.user.username }}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="usuarioDropdown">
-                                <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
+                                <li><form method="post" action="{% url 'logout' %}" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-item" style="background: none; border: none; padding: 0; cursor: pointer;">Sair</button>
+                                    </form>
+                                </li>
                             </ul>
                         </li>
                         {% else %}
