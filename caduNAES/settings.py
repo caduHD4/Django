@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'cadastros.apps.CadastrosConfig', #ativar o modulos cadastros
     'paginas.apps.PaginasConfig', #ativar o modulos paginas
+    'usuarios.apps.UsuariosConfig', #ativar o modulos usuarios
 
     'crispy_forms',
     'crispy_bootstrap5',
@@ -134,3 +135,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #configurações do crispy forms
 CRISPY_ALLOWED_TEMPLETE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+# Configurações de Autenticação
+LOGIN_REDIRECT_URL = 'inicio'
+LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = 'login'

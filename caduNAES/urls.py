@@ -18,10 +18,9 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    # importa as urls do app 'admin'
     path('admin/', admin.site.urls),
 
-    # importa as urls do app 'paginas'
-    path('', include ("paginas.urls")), #importa as urls
-    path('', include ("cadastros.urls")), #importa as urls
+    path('', include ("paginas.urls")),
+    path('', include ("cadastros.urls")),
+    path('', include ("usuarios.urls")),
 ]
