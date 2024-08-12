@@ -3,12 +3,14 @@ from django.views.generic.list import ListView
 from django.forms.widgets import DateTimeInput
 from django.urls import reverse_lazy
 from .models import Cidade, Pessoa, Carro, Morador, Porteiro, Visita, Apartamento
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class CidadeCreate(CreateView):
+class CidadeCreate(LoginRequiredMixin, CreateView):
     model = Cidade
     fields = ['nome', 'estado']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-cidade')
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -17,11 +19,12 @@ class CidadeCreate(CreateView):
         context['botao'] = 'Cadastrar Cidade'
         return context
 
-class PessoaCreate(CreateView):
+class PessoaCreate(LoginRequiredMixin, CreateView):
     model = Pessoa
     fields = ['nome_completo', 'nascimento', 'cpf', 'email', 'cidade']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-pessoa')
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -30,11 +33,12 @@ class PessoaCreate(CreateView):
         context['botao'] = 'Cadastrar Pessoa'
         return context
 
-class CarroCreate(CreateView):
+class CarroCreate(LoginRequiredMixin, CreateView):
     model = Carro
     fields = ['placa', 'modelo', 'cor', 'apartamento']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-carro')
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -43,11 +47,12 @@ class CarroCreate(CreateView):
         context['botao'] = 'Cadastrar Carro'
         return context
 
-class MoradorCreate(CreateView):
+class MoradorCreate(LoginRequiredMixin, CreateView):
     model = Morador
     fields = ['nome_completo', 'nascimento', 'cpf', 'email', 'cidade', 'apartamento', 'possui_animais']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-morador')
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -56,11 +61,12 @@ class MoradorCreate(CreateView):
         context['botao'] = 'Cadastrar Morador'
         return context
 
-class PorteiroCreate(CreateView):
+class PorteiroCreate(LoginRequiredMixin, CreateView):
     model = Porteiro
     fields = ['nome', 'turno']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-porteiro')
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -69,11 +75,12 @@ class PorteiroCreate(CreateView):
         context['botao'] = 'Cadastrar Porteiro'
         return context
 
-class VisitaCreate(CreateView):
+class VisitaCreate(LoginRequiredMixin, CreateView):
     model = Visita
     fields = ['pessoa_visita', 'pessoa_visitada', 'motivo', 'data_hora_entrada', 'data_hora_saida']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-visita')
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -82,11 +89,12 @@ class VisitaCreate(CreateView):
         context['botao'] = 'Cadastrar Visita'
         return context
 
-class ApartamentoCreate(CreateView):
+class ApartamentoCreate(LoginRequiredMixin, CreateView):
     model = Apartamento
     fields = ['numero', 'bloco']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-apartamento')
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -97,11 +105,12 @@ class ApartamentoCreate(CreateView):
 
 ##########UPDATE##############
 
-class CidadeUpdate(UpdateView):
+class CidadeUpdate(LoginRequiredMixin, UpdateView):
     model = Cidade
     fields = ['nome', 'estado']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-cidade')
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -110,11 +119,12 @@ class CidadeUpdate(UpdateView):
         context['botao'] = 'Atualizar Cidade'
         return context
 
-class PessoaUpdate(UpdateView):
+class PessoaUpdate(LoginRequiredMixin, UpdateView):
     model = Pessoa
     fields = ['nome_completo', 'nascimento', 'cpf', 'email', 'cidade']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-pessoa')
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -123,11 +133,12 @@ class PessoaUpdate(UpdateView):
         context['botao'] = 'Atualizar Pessoa'
         return context
 
-class CarroUpdate(UpdateView):
+class CarroUpdate(LoginRequiredMixin, UpdateView):
     model = Carro
     fields = ['placa', 'modelo', 'cor', 'apartamento']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-carro')
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -136,11 +147,12 @@ class CarroUpdate(UpdateView):
         context['botao'] = 'Atualizar Carro'
         return context
 
-class MoradorUpdate(UpdateView):
+class MoradorUpdate(LoginRequiredMixin, UpdateView):
     model = Morador
     fields = ['nome_completo', 'nascimento', 'cpf', 'email', 'cidade', 'apartamento', 'possui_animais']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-morador')
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -149,11 +161,12 @@ class MoradorUpdate(UpdateView):
         context['botao'] = 'Atualizar Morador'
         return context
 
-class PorteiroUpdate(UpdateView):
+class PorteiroUpdate(LoginRequiredMixin, UpdateView):
     model = Porteiro
     fields = ['nome', 'turno']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-porteiro')
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -162,11 +175,12 @@ class PorteiroUpdate(UpdateView):
         context['botao'] = 'Atualizar Porteiro'
         return context
 
-class VisitaUpdate(UpdateView):
+class VisitaUpdate(LoginRequiredMixin, UpdateView):
     model = Visita
     fields = ['pessoa_visita', 'pessoa_visitada', 'motivo', 'data_hora_entrada', 'data_hora_saida']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-visita')
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -175,11 +189,12 @@ class VisitaUpdate(UpdateView):
         context['botao'] = 'Atualizar Visita'
         return context
 
-class ApartamentoUpdate(UpdateView):
+class ApartamentoUpdate(LoginRequiredMixin, UpdateView):
     model = Apartamento
     fields = ['numero', 'bloco']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-apartamento')
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -190,74 +205,88 @@ class ApartamentoUpdate(UpdateView):
 
 #######DELETE#######
 
-class CidadeDelete(DeleteView):
+class CidadeDelete(LoginRequiredMixin, DeleteView):
     model = Cidade
     template_name = 'cadastros/confirm_delete.html'
     success_url = reverse_lazy('list-cidade')
+    login_url = reverse_lazy('login')
 
-class PessoaDelete(DeleteView):
+class PessoaDelete(LoginRequiredMixin, DeleteView):
     model = Pessoa
     template_name = 'cadastros/confirm_delete.html'
     success_url = reverse_lazy('list-pessoa')
+    login_url = reverse_lazy('login')
 
-class CarroDelete(DeleteView):
+class CarroDelete(LoginRequiredMixin, DeleteView):
     model = Carro
     template_name = 'cadastros/confirm_delete.html'
     success_url = reverse_lazy('list-carro')
+    login_url = reverse_lazy('login')
 
-class MoradorDelete(DeleteView):
+class MoradorDelete(LoginRequiredMixin, DeleteView):
     model = Morador
     template_name = 'cadastros/confirm_delete.html'
     success_url = reverse_lazy('list-morador')
+    login_url = reverse_lazy('login')
 
-class PorteiroDelete(DeleteView):
+class PorteiroDelete(LoginRequiredMixin, DeleteView):
     model = Porteiro
     template_name = 'cadastros/confirm_delete.html'
     success_url = reverse_lazy('list-porteiro')
+    login_url = reverse_lazy('login')
 
-class VisitaDelete(DeleteView):
+class VisitaDelete(LoginRequiredMixin, DeleteView):
     model = Visita
     template_name = 'cadastros/confirm_delete.html'
     success_url = reverse_lazy('list-visita')
+    login_url = reverse_lazy('login')
 
-class ApartamentoDelete(DeleteView):
+class ApartamentoDelete(LoginRequiredMixin, DeleteView):
     model = Apartamento
     template_name = 'cadastros/confirm_delete.html'
     success_url = reverse_lazy('list-apartamento')
+    login_url = reverse_lazy('login')
 
 #######LISTA#######
 
-class CidadeList(ListView):
+class CidadeList(LoginRequiredMixin, ListView):
     model = Cidade
     template_name = 'cadastros/listas/cidade.html'
     context_object_name = 'cidades'
+    login_url = reverse_lazy('login')
 
-class PessoaList(ListView):
+class PessoaList(LoginRequiredMixin, ListView):
     model = Pessoa
     template_name = 'cadastros/listas/pessoa.html'
     context_object_name = 'pessoas'
+    login_url = reverse_lazy('login')
 
-class CarroList(ListView):
+class CarroList(LoginRequiredMixin, ListView):
     model = Carro
     template_name = 'cadastros/listas/carro.html'
     context_object_name = 'carros'
+    login_url = reverse_lazy('login')
 
-class MoradorList(ListView):
+class MoradorList(LoginRequiredMixin, ListView):
     model = Morador
     template_name = 'cadastros/listas/morador.html'
     context_object_name = 'moradores'
+    login_url = reverse_lazy('login')
 
-class PorteiroList(ListView):
+class PorteiroList(LoginRequiredMixin, ListView):
     model = Porteiro
     template_name = 'cadastros/listas/porteiro.html'
     context_object_name = 'porteiros'
+    login_url = reverse_lazy('login')
 
-class VisitaList(ListView):
+class VisitaList(LoginRequiredMixin, ListView):
     model = Visita
     template_name = 'cadastros/listas/visita.html'
     context_object_name = 'visitas'
+    login_url = reverse_lazy('login')
 
-class ApartamentoList(ListView):
+class ApartamentoList(LoginRequiredMixin, ListView):
     model = Apartamento
     template_name = 'cadastros/listas/apartamento.html'
     context_object_name = 'apartamentos'
+    login_url = reverse_lazy('login')
