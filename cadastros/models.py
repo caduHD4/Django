@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Cidade(models.Model):
     nome = models.CharField(max_length=100)
     estado = models.CharField(max_length=2)
@@ -11,7 +12,7 @@ class Pessoa(models.Model):
     nome_completo = models.CharField(max_length=150)
     nascimento = models.DateField(verbose_name="data de nascimento")
     cpf = models.CharField(max_length=14, verbose_name="cpf", unique=True)
-    email = models.EmailField(max_length=120, blank=True, null=True, default="Sem email")
+    email = models.EmailField(max_length=120, blank=True, null=True)
     cadastrado_em = models.DateTimeField(auto_now_add=True)
     atualizado_em = models.DateTimeField(auto_now=True)
     cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT)

@@ -1,14 +1,22 @@
-<!-- Carrega a biblioteca de funções (filtros, templatetags)-->
-{% extends "paginas/modelo.html" %}
+{% extends "modelo.html" %}
+{% load static %}
 
 {% block content %}
-<div style="margin-top: 100px;"> 
-    <h3>Sobre o Sistema</h3>
-    <p>Meu nome é Caduzim Gameplays e o meu sistema ainda
-        num funciona!
-    </p>
-    <p>Contato: 20210000709@estudantes.ifpr.edu.br</p>
-</div>
-
+    <div class="container py-5">
+        <h1 class="text-center">Sobre o projeto</h1>
+        <p class="text-center">Meu nome é caduHD4 e o meu sistema ainda num funciona!</p>
+        <p class="text-center">Contato: 20210000709@estudantes.ifpr.edu.br</p>
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <img src="{% static 'img/casos_de_uso1.png' %}" alt="Casos de Uso 1" class="img-fluid rounded mb-4">
+                <img src="{% static 'img/casos_de_uso2.png' %}" alt="Casos de Uso 2" class="img-fluid rounded mb-4">
+                <img src="{% static 'img/casos_de_uso3.png' %}" alt="Casos de Uso 3" class="img-fluid rounded">
+                <p>Casos de Uso</p>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="{% static 'img/diagrama_de_classes.jpeg' %}" alt="Diagrama de Classe" class="img-fluid rounded">
+                <p>Diagrama de Classe</p>
+            </div>
+        </div>
+    </div>
 {% endblock %}
-

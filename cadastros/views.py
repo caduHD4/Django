@@ -1,5 +1,6 @@
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
+from django.forms.widgets import DateTimeInput
 from django.urls import reverse_lazy
 from .models import Cidade, Pessoa, Carro, Morador, Porteiro, Visita, Apartamento
 
@@ -9,11 +10,25 @@ class CidadeCreate(CreateView):
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-cidade')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Cadastro de Cidade'
+        context['descricao'] = 'Preencha todos os campos obrigatórios para cadastrar uma nova cidade.'
+        context['botao'] = 'Cadastrar Cidade'
+        return context
+
 class PessoaCreate(CreateView):
     model = Pessoa
     fields = ['nome_completo', 'nascimento', 'cpf', 'email', 'cidade']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-pessoa')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Cadastro de Pessoa'
+        context['descricao'] = 'Preencha todos os campos obrigatórios para cadastrar uma nova pessoa.'
+        context['botao'] = 'Cadastrar Pessoa'
+        return context
 
 class CarroCreate(CreateView):
     model = Carro
@@ -21,11 +36,25 @@ class CarroCreate(CreateView):
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-carro')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Cadastro de Carro'
+        context['descricao'] = 'Preencha todos os campos obrigatórios para cadastrar um novo carro.'
+        context['botao'] = 'Cadastrar Carro'
+        return context
+
 class MoradorCreate(CreateView):
     model = Morador
     fields = ['nome_completo', 'nascimento', 'cpf', 'email', 'cidade', 'apartamento', 'possui_animais']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-morador')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Cadastro de Morador'
+        context['descricao'] = 'Preencha todos os campos obrigatórios para cadastrar um novo morador.'
+        context['botao'] = 'Cadastrar Morador'
+        return context
 
 class PorteiroCreate(CreateView):
     model = Porteiro
@@ -33,17 +62,38 @@ class PorteiroCreate(CreateView):
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-porteiro')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Cadastro de Porteiro'
+        context['descricao'] = 'Preencha todos os campos obrigatórios para cadastrar um novo porteiro.'
+        context['botao'] = 'Cadastrar Porteiro'
+        return context
+
 class VisitaCreate(CreateView):
     model = Visita
     fields = ['pessoa_visita', 'pessoa_visitada', 'motivo', 'data_hora_entrada', 'data_hora_saida']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-visita')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Cadastro de Visita'
+        context['descricao'] = 'Preencha todos os campos obrigatórios para cadastrar uma nova visita.'
+        context['botao'] = 'Cadastrar Visita'
+        return context
+
 class ApartamentoCreate(CreateView):
     model = Apartamento
     fields = ['numero', 'bloco']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-apartamento')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Cadastro de Apartamento'
+        context['descricao'] = 'Preencha todos os campos obrigatórios para cadastrar um novo apartamento.'
+        context['botao'] = 'Cadastrar Apartamento'
+        return context
 
 ##########UPDATE##############
 
@@ -53,11 +103,25 @@ class CidadeUpdate(UpdateView):
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-cidade')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Atualização de Cidade'
+        context['descricao'] = 'Atualize os campos necessários para modificar a cidade existente.'
+        context['botao'] = 'Atualizar Cidade'
+        return context
+
 class PessoaUpdate(UpdateView):
     model = Pessoa
     fields = ['nome_completo', 'nascimento', 'cpf', 'email', 'cidade']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-pessoa')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Atualização de Pessoa'
+        context['descricao'] = 'Atualize os campos necessários para modificar a pessoa existente.'
+        context['botao'] = 'Atualizar Pessoa'
+        return context
 
 class CarroUpdate(UpdateView):
     model = Carro
@@ -65,11 +129,25 @@ class CarroUpdate(UpdateView):
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-carro')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Atualização de Carro'
+        context['descricao'] = 'Atualize os campos necessários para modificar o carro existente.'
+        context['botao'] = 'Atualizar Carro'
+        return context
+
 class MoradorUpdate(UpdateView):
     model = Morador
     fields = ['nome_completo', 'nascimento', 'cpf', 'email', 'cidade', 'apartamento', 'possui_animais']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-morador')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Atualização de Morador'
+        context['descricao'] = 'Atualize os campos necessários para modificar o morador existente.'
+        context['botao'] = 'Atualizar Morador'
+        return context
 
 class PorteiroUpdate(UpdateView):
     model = Porteiro
@@ -77,17 +155,38 @@ class PorteiroUpdate(UpdateView):
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-porteiro')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Atualização de Porteiro'
+        context['descricao'] = 'Atualize os campos necessários para modificar o porteiro existente.'
+        context['botao'] = 'Atualizar Porteiro'
+        return context
+
 class VisitaUpdate(UpdateView):
     model = Visita
     fields = ['pessoa_visita', 'pessoa_visitada', 'motivo', 'data_hora_entrada', 'data_hora_saida']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-visita')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Atualização de Visita'
+        context['descricao'] = 'Atualize os campos necessários para modificar a visita existente.'
+        context['botao'] = 'Atualizar Visita'
+        return context
+
 class ApartamentoUpdate(UpdateView):
     model = Apartamento
     fields = ['numero', 'bloco']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-apartamento')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Atualização de Apartamento'
+        context['descricao'] = 'Atualize os campos necessários para modificar o apartamento existente.'
+        context['botao'] = 'Atualizar Apartamento'
+        return context
 
 #######DELETE#######
 
