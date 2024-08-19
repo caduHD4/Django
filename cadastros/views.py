@@ -319,6 +319,12 @@ class VisitaList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     group_required = "Administrador", "Usuarios"
 
+    #Lista apenas as visitas do usuario logado, exibe todas as visitas para o grupo Administrador
+    def get_queryset(self):
+        if self.request.user.groups.filter(name='Administrador').exists():
+            return Visita.objects.all()
+        return Visita.objects.filter(user=self.request.user)
+
 class ApartamentoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Apartamento
     template_name = 'cadastros/listas/apartamento.html'
