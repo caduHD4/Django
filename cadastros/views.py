@@ -87,7 +87,13 @@ class VisitaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-visita')
     login_url = reverse_lazy('login')
-    group_required = "Administrador"
+    group_required = "Administrador", "Usuarios"
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        url = super().form_valid(form)
+
+        return url
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -194,7 +200,7 @@ class VisitaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-visita')
     login_url = reverse_lazy('login')
-    group_required = "Administrador"
+    group_required = "Administrador", "Usuarios"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -260,7 +266,7 @@ class VisitaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     template_name = 'cadastros/confirm_delete.html'
     success_url = reverse_lazy('list-visita')
     login_url = reverse_lazy('login')
-    group_required = "Administrador"
+    group_required = "Administrador", "Usuarios"
 
 class ApartamentoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Apartamento

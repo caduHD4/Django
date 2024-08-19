@@ -17,6 +17,7 @@
             <th>Motivo</th>
             <th>Data e Hora de Entrada</th>
             <th>Data e Hora de Saída</th>
+            <th>Por</th>
             <th>Opções</th>
         </tr>
 
@@ -27,6 +28,7 @@
             <td>{{ visita.motivo }}</td>
             <td>{{ visita.data_hora_entrada }}</td>
             <td>{{ visita.data_hora_saida }}</td>
+            <td>{{ visita.user }}</td>
             <td>
                 <a href="{% url 'update-visita' visita.pk %}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                 <a href="{% url 'delete-visita' visita.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>

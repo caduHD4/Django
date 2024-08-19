@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Cidade(models.Model):
@@ -49,6 +50,7 @@ class Visita(models.Model):
     motivo = models.CharField(max_length=255)
     data_hora_entrada = models.DateTimeField()
     data_hora_saida = models.DateTimeField(null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Visitante {self.pessoa_visita.nome_completo} em Apto {self.pessoa_visitada.apartamento.numero}, {self.pessoa_visitada.nome_completo}, Bloco {self.pessoa_visitada.apartamento.bloco} - Entrada: {self.data_hora_entrada.strftime('%d/%m/%Y %H:%M')}"
