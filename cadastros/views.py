@@ -202,6 +202,13 @@ class VisitaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
     group_required = "Administrador", "Usuarios"
 
+    def get_object(self, queryset=None):
+        visita = self.object = Visita.objects.get(pk=self.kwargs['pk'])
+        if not self.request.user.groups.filter(name='Administrador').exists():
+            if self.object.user != self.request.user:
+                raise AcessoNegado
+        return visita
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Atualização de Visita'
@@ -267,6 +274,13 @@ class VisitaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('list-visita')
     login_url = reverse_lazy('login')
     group_required = "Administrador", "Usuarios"
+
+    def get_object(self, queryset=None):
+        visitaDelete = self.object = Visita.objects.get(pk=self.kwargs['pk'])
+        if not self.request.user.groups.filter(name='Administrador').exists():
+            if self.object.user != self.request.user:
+                raise Acesso_Negado_voce_nao_tem_permissao_para_excluir_esta_visita
+        return visitaDelete
 
 class ApartamentoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Apartamento
