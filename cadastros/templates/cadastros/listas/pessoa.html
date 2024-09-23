@@ -17,6 +17,7 @@
             <th>CPF</th>
             <th>Email</th>
             <th>Cidade</th>
+            <th>Arquivo</th>
             <th>Opções</th>
         </tr>
 
@@ -27,6 +28,13 @@
             <td>{{ pessoa.cpf }}</td>
             <td>{{ pessoa.email }}</td>
             <td>{{ pessoa.cidade }}</td>
+            <td>
+                {% if pessoa.arquivo %}
+                    <a href="{{ pessoa.arquivo.url }}" download>Download</a>
+                {% else %}
+                    Nenhum arquivo
+                {% endif %}
+            </td>
             <td>
                 <a href="{% url 'update-pessoa' pessoa.pk %}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                 <a href="{% url 'delete-pessoa' pessoa.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>

@@ -136,8 +136,8 @@ class CidadeUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
 
 class PessoaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Pessoa
-    fields = ['nome_completo', 'nascimento', 'cpf', 'email', 'cidade']
-    template_name = 'cadastros/form.html'
+    fields = ['nome_completo', 'nascimento', 'cpf', 'email', 'cidade', 'arquivo']
+    template_name = 'cadastros/form-upload.html'
     success_url = reverse_lazy('list-pessoa')
     login_url = reverse_lazy('login')
     group_required = "Administrador"

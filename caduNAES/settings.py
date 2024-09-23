@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'crispy_bootstrap5',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
@@ -144,3 +145,4 @@ LOGIN_URL = 'login'
 #arquivos de upload
 
 MEDIA_ROOT = BASE_DIR / 'uploads'
+MEDIA_URL = '/uploads/'
