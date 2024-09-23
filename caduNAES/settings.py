@@ -140,3 +140,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 LOGIN_REDIRECT_URL = 'inicio'
 LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'
+
+#arquivos de upload
+
+MEDIA_ROOT = BASE_DIR / 'uploads'

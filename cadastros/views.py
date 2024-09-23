@@ -23,8 +23,8 @@ class CidadeCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
 
 class PessoaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Pessoa
-    fields = ['nome_completo', 'nascimento', 'cpf', 'email', 'cidade']
-    template_name = 'cadastros/form.html'
+    fields = ['nome_completo', 'nascimento', 'cpf', 'email', 'cidade', 'arquivo']
+    template_name = 'cadastros/form-upload.html'
     success_url = reverse_lazy('list-pessoa')
     login_url = reverse_lazy('login')
     group_required = "Administrador"

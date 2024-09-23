@@ -17,6 +17,7 @@ class Pessoa(models.Model):
     cadastrado_em = models.DateTimeField(auto_now_add=True)
     atualizado_em = models.DateTimeField(auto_now=True)
     cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT)
+    arquivo = models.FileField(upload_to='fotos/', blank=True, null=True)
 
     def __str__(self):
         return f"{self.nome_completo} {self.cpf}"
