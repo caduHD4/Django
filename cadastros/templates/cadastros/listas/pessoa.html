@@ -10,17 +10,20 @@
     <a href="{% url 'add-pessoa' %}" class="btn btn-primary">Cadastrar Nova Pessoa</a>
 </div>
 <div class="table-responsive mt-4">
-    <table class="table table-striped">
-        <tr>
-            <th>Nome Completo</th>
-            <th>Nascimento</th>
-            <th>CPF</th>
-            <th>Email</th>
-            <th>Cidade</th>
-            <th>Arquivo</th>
-            <th>Opções</th>
-        </tr>
+    <table class="table table-striped" id="tabela-listar">
+        <thead>
+            <tr>
+                <th>Nome Completo</th>
+                <th>Nascimento</th>
+                <th>CPF</th>
+                <th>Email</th>
+                <th>Cidade</th>
+                <th>Arquivo</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
 
+        <tbody>
         {% for pessoa in object_list %}
         <tr>
             <td>{{ pessoa.nome_completo }}</td>
@@ -42,11 +45,53 @@
         </tr>
         {% empty %}
         <tr>
-            <td colspan="6">Nenhuma pessoa registrada.</td>
+            <td colspan="7">Nenhuma pessoa registrada.</td>
         </tr>
         {% endfor %}
+        </tbody>
     </table>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        $('#tabela-listar').DataTable({
+            responsive: true,
+            // "bSort": false,
+            "aaSorting": [],
+            "pageLength": 50,
+            "language": {
+                "decimal": "",
+                "emptyTable": "Sem dados disponíveis",
+                "info": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "infoEmpty": "Mostrando de 0 até 0 de 0 registros",
+                "infoFiltered": "(filtrado de _MAX_ registros no total)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "loadingRecords": "A carregar dados...",
+                "processing": "A processar...",
+                "search": "Procurar:",
+                "zeroRecords": "Não foram encontrados resultados",
+                "paginate": {
+                    "first": "Primeiro",
+                    "last": "Último",
+                    "next": "Seguinte",
+                    "previous": "Anterior"
+                },
+                "aria": {
+                    // Continue com o restante da configuração
+                }
+            }
+        });
+    });
+</script>
+
+
+
+
+
 {% endblock %}
 
 

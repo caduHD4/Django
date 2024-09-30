@@ -1,0 +1,12 @@
+{% extends 'paginas/modelo-ifpr.html' %}
+
+{% block title %}Página Inicial{% endblock %}
+
+{% block content %}
+{% if user.perfil.nome_completo%}
+Bem vindo ao sistema {{user.perfil.nome_completo}}
+{% else %}
+Você precisa completar seu cadastro. Acesse os <a href="{% url 'atualizar-dados' %}">seus dados</a> para atualizar.
+{% endif %}
+ 
+{% endblock %}
