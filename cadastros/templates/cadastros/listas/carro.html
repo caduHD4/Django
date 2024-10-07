@@ -10,15 +10,17 @@
     <a href="{% url 'add-carro' %}" class="btn btn-primary">Cadastrar Novo Carro</a>
 </div>
 <div class="table-responsive mt-4">
-    <table class="table table-striped">
-        <tr>
-            <th>Placa</th>
-            <th>Modelo</th>
-            <th>Cor</th>
-            <th>Apartamento</th>
-            <th>Opções</th>
-        </tr>
-
+    <table class="table table-striped" id="tabela-carros">
+        <thead>
+            <tr>
+                <th>Placa</th>
+                <th>Modelo</th>
+                <th>Cor</th>
+                <th>Apartamento</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
         {% for carro in object_list %}
         <tr>
             <td>{{ carro.placa }}</td>
@@ -31,10 +33,57 @@
             </td>
         </tr>
         {% empty %}
-        <tr>
-            <td colspan="5">Nenhum carro registrado.</td>
+        <tr class="d-none">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
         {% endfor %}
+        </tbody>
     </table>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        var table = $('#tabela-carros').DataTable({
+            responsive: true,
+            "aaSorting": [],
+            "pageLength": 10,
+            "language": {
+                "decimal": "",
+                "emptyTable": "Sem dados disponíveis",
+                "info": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "infoEmpty": "Mostrando de 0 até 0 de 0 registros",
+                "infoFiltered": "(filtrado de _MAX_ registros no total)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "loadingRecords": "A carregar dados...",
+                "processing": "A processar...",
+                "search": "Procurar:",
+                "zeroRecords": "Não foram encontrados resultados",
+                "paginate": {
+                    "first": "Primeiro",
+                    "last": "Último",
+                    "next": "Seguinte",
+                    "previous": "Anterior"
+                },
+                "aria": {
+                    // Continue com o restante da configuração
+                }
+            }
+        });
+
+        // Adiciona uma linha vazia se a tabela estiver vazia
+        if (!table.data().any()) {
+            table.row.add([
+                '', '', '', '', ''
+            ]).draw();
+        }
+    });
+</script>
 {% endblock %}

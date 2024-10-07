@@ -44,8 +44,14 @@
             </td>
         </tr>
         {% empty %}
-        <tr>
-            <td colspan="7">Nenhuma pessoa registrada.</td>
+        <tr class="d-none">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
         {% endfor %}
         </tbody>
@@ -56,11 +62,10 @@
 {% block scripts %}
 <script>
     $(document).ready(function() {
-        $('#tabela-listar').DataTable({
+        var table = $('#tabela-listar').DataTable({
             responsive: true,
-            // "bSort": false,
             "aaSorting": [],
-            "pageLength": 50,
+            "pageLength": 10,
             "language": {
                 "decimal": "",
                 "emptyTable": "Sem dados disponíveis",
@@ -85,13 +90,13 @@
                 }
             }
         });
+
+        // Adiciona uma linha vazia se a tabela estiver vazia
+        if (!table.data().any()) {
+            table.row.add([
+                '', '', '', '', '', '', ''
+            ]).draw();
+        }
     });
 </script>
-
-
-
-
-
 {% endblock %}
-
-

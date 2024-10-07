@@ -11,18 +11,20 @@
     <a href="{% url 'add-morador' %}" class="btn btn-primary">Cadastrar Novo Morador(a)</a>
 </div>
 <div class="table-responsive mt-4">
-    <table class="table table-striped">
-        <tr>
-            <th>Nome Completo</th>
-            <th>Nascimento</th>
-            <th>CPF</th>
-            <th>Email</th>
-            <th>Cidade</th>
-            <th>Apartamento</th>
-            <th>Possui Animais</th>
-            <th>Opções</th>
-        </tr>
-
+    <table class="table table-striped" id="tabela-moradores">
+        <thead>
+            <tr>
+                <th>Nome Completo</th>
+                <th>Nascimento</th>
+                <th>CPF</th>
+                <th>Email</th>
+                <th>Cidade</th>
+                <th>Apartamento</th>
+                <th>Possui Animais</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
         {% for morador in object_list %}
         <tr>
             <td>{{ morador.nome_completo }}</td>
@@ -38,10 +40,60 @@
             </td>
         </tr>
         {% empty %}
-        <tr>
-            <td colspan="8">Nenhum morador registrado.</td>
+        <tr class="d-none">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
         {% endfor %}
+        </tbody>
     </table>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        var table = $('#tabela-moradores').DataTable({
+            responsive: true,
+            "aaSorting": [],
+            "pageLength": 10,
+            "language": {
+                "decimal": "",
+                "emptyTable": "Sem dados disponíveis",
+                "info": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "infoEmpty": "Mostrando de 0 até 0 de 0 registros",
+                "infoFiltered": "(filtrado de _MAX_ registros no total)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "loadingRecords": "A carregar dados...",
+                "processing": "A processar...",
+                "search": "Procurar:",
+                "zeroRecords": "Não foram encontrados resultados",
+                "paginate": {
+                    "first": "Primeiro",
+                    "last": "Último",
+                    "next": "Seguinte",
+                    "previous": "Anterior"
+                },
+                "aria": {
+                    // Continue com o restante da configuração
+                }
+            }
+        });
+
+        // Adiciona uma linha vazia se a tabela estiver vazia
+        if (!table.data().any()) {
+            table.row.add([
+                '', '', '', '', '', '', '', ''
+            ]).draw();
+        }
+    });
+</script>
 {% endblock %}
