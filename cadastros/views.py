@@ -13,7 +13,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 
 
-class CidadeCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessMessageMixin):
+class CidadeCreate(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Cidade
     fields = ['nome', 'estado']
     template_name = 'cadastros/form.html'
@@ -29,7 +29,7 @@ class CidadeCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessMe
         context['botao'] = 'Cadastrar Cidade'
         return context
 
-class PessoaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessMessageMixin):
+class PessoaCreate(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Pessoa
     fields = ['nome_completo', 'nascimento', 'cpf', 'email', 'cidade', 'arquivo']
     template_name = 'cadastros/form-upload.html'
@@ -45,7 +45,7 @@ class PessoaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessMe
         context['botao'] = 'Cadastrar Pessoa'
         return context
 
-class CarroCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessMessageMixin):
+class CarroCreate(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Carro
     fields = ['placa', 'modelo', 'cor', 'apartamento']
     template_name = 'cadastros/form.html'
@@ -61,7 +61,7 @@ class CarroCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessMes
         context['botao'] = 'Cadastrar Carro'
         return context
 
-class MoradorCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessMessageMixin):
+class MoradorCreate(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Morador
     fields = ['nome_completo', 'nascimento', 'cpf', 'email', 'cidade', 'apartamento', 'possui_animais']
     template_name = 'cadastros/form.html'
@@ -77,7 +77,7 @@ class MoradorCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessM
         context['botao'] = 'Cadastrar Morador'
         return context
 
-class PorteiroCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessMessageMixin):
+class PorteiroCreate(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Porteiro
     fields = ['nome', 'turno']
     template_name = 'cadastros/form.html'
@@ -93,7 +93,7 @@ class PorteiroCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, Success
         context['botao'] = 'Cadastrar Porteiro'
         return context
 
-class VisitaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessMessageMixin):
+class VisitaCreate(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Visita
     fields = ['pessoa_visita', 'pessoa_visitada', 'motivo', 'data_hora_entrada', 'data_hora_saida']
     template_name = 'cadastros/form.html'
@@ -115,7 +115,7 @@ class VisitaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessMe
         context['botao'] = 'Cadastrar Visita'
         return context
 
-class ApartamentoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessMessageMixin):
+class ApartamentoCreate(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Apartamento
     fields = ['numero', 'bloco']
     template_name = 'cadastros/form.html'
@@ -133,13 +133,14 @@ class ApartamentoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, Succ
 
 ##########UPDATE##############
 
-class CidadeUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+class CidadeUpdate(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Cidade
     fields = ['nome', 'estado']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-cidade')
     login_url = reverse_lazy('login')
     group_required = "Administrador"
+    success_message = "Cidade %(nome)s atualizada com sucesso!"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -148,13 +149,14 @@ class CidadeUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         context['botao'] = 'Atualizar Cidade'
         return context
 
-class PessoaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+class PessoaUpdate(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Pessoa
     fields = ['nome_completo', 'nascimento', 'cpf', 'email', 'cidade', 'arquivo']
     template_name = 'cadastros/form-upload.html'
     success_url = reverse_lazy('list-pessoa')
     login_url = reverse_lazy('login')
     group_required = "Administrador"
+    success_message = "Pessoa %(nome_completo)s atualizada com sucesso!"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -163,13 +165,14 @@ class PessoaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         context['botao'] = 'Atualizar Pessoa'
         return context
 
-class CarroUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+class CarroUpdate(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Carro
     fields = ['placa', 'modelo', 'cor', 'apartamento']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-carro')
     login_url = reverse_lazy('login')
     group_required = "Administrador"
+    success_message = "Carro %(placa)s atualizado com sucesso!"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -178,13 +181,14 @@ class CarroUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         context['botao'] = 'Atualizar Carro'
         return context
 
-class MoradorUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+class MoradorUpdate(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Morador
     fields = ['nome_completo', 'nascimento', 'cpf', 'email', 'cidade', 'apartamento', 'possui_animais']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-morador')
     login_url = reverse_lazy('login')
     group_required = "Administrador"
+    success_message = "Morador %(nome_completo)s atualizado com sucesso!"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -193,13 +197,14 @@ class MoradorUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         context['botao'] = 'Atualizar Morador'
         return context
 
-class PorteiroUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+class PorteiroUpdate(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Porteiro
     fields = ['nome', 'turno']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-porteiro')
     login_url = reverse_lazy('login')
     group_required = "Administrador"
+    success_message = "Porteiro %(nome)s atualizado com sucesso!"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -208,13 +213,14 @@ class PorteiroUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         context['botao'] = 'Atualizar Porteiro'
         return context
 
-class VisitaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+class VisitaUpdate(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Visita
     fields = ['pessoa_visita', 'pessoa_visitada', 'motivo', 'data_hora_entrada', 'data_hora_saida']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-visita')
     login_url = reverse_lazy('login')
     group_required = "Administrador", "Usuarios"
+    success_message = "Visita para %(pessoa_visitada)s atualizada com sucesso!"
 
     def get_object(self, queryset=None):
         visita = self.object = Visita.objects.get(pk=self.kwargs['pk'])
@@ -230,13 +236,14 @@ class VisitaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         context['botao'] = 'Atualizar Visita'
         return context
 
-class ApartamentoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+class ApartamentoUpdate(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Apartamento
     fields = ['numero', 'bloco']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-apartamento')
     login_url = reverse_lazy('login')
     group_required = "Administrador"
+    success_message = "Apartamento %(numero)s atualizado com sucesso!"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -247,47 +254,53 @@ class ApartamentoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
 
 #######DELETE#######
 
-class CidadeDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
+class CidadeDelete(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Cidade
     template_name = 'cadastros/confirm_delete.html'
     success_url = reverse_lazy('list-cidade')
     login_url = reverse_lazy('login')
     group_required = "Administrador"
+    success_message = "Cidade excluída com sucesso!"
 
-class PessoaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
+class PessoaDelete(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Pessoa
     template_name = 'cadastros/confirm_delete.html'
     success_url = reverse_lazy('list-pessoa')
     login_url = reverse_lazy('login')
     group_required = "Administrador"
+    success_message = "Pessoa excluída com sucesso!"
 
-class CarroDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
+class CarroDelete(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Carro
     template_name = 'cadastros/confirm_delete.html'
     success_url = reverse_lazy('list-carro')
     login_url = reverse_lazy('login')
     group_required = "Administrador"
+    success_message = "Carro excluído com sucesso!"
 
-class MoradorDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
+class MoradorDelete(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Morador
     template_name = 'cadastros/confirm_delete.html'
     success_url = reverse_lazy('list-morador')
     login_url = reverse_lazy('login')
     group_required = "Administrador"
+    success_message = "Morador excluído com sucesso!"
 
-class PorteiroDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
+class PorteiroDelete(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Porteiro
     template_name = 'cadastros/confirm_delete.html'
     success_url = reverse_lazy('list-porteiro')
     login_url = reverse_lazy('login')
     group_required = "Administrador"
+    success_message = "Porteiro excluído com sucesso!"
 
-class VisitaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
+class VisitaDelete(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Visita
     template_name = 'cadastros/confirm_delete.html'
     success_url = reverse_lazy('list-visita')
     login_url = reverse_lazy('login')
     group_required = "Administrador", "Usuarios"
+    success_message = "Visita excluída com sucesso!"
 
     def get_object(self, queryset=None):
         visitaDelete = self.object = Visita.objects.get(pk=self.kwargs['pk'])
@@ -296,12 +309,13 @@ class VisitaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
                 raise Acesso_Negado_voce_nao_tem_permissao_para_excluir_esta_visita
         return visitaDelete
 
-class ApartamentoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
+class ApartamentoDelete(SuccessMessageMixin, GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Apartamento
     template_name = 'cadastros/confirm_delete.html'
     success_url = reverse_lazy('list-apartamento')
     login_url = reverse_lazy('login')
     group_required = "Administrador"
+    success_message = "Apartamento excluído com sucesso!"
 
 #######LISTA#######
 
