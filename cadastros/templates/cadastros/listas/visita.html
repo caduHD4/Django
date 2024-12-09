@@ -6,19 +6,54 @@
 <div style="margin-top: 80px;"></div>
 <h3>Lista de visitas registradas</h3>
 <hr>
+
+<!-- Botão de toggle para filtros -->
+<button class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#filtrosCollapse" aria-expanded="false" aria-controls="filtrosCollapse">
+    <i class="fas fa-filter"></i> Mostrar Filtros
+</button>
+
+<!-- Filtros em collapse -->
+<div class="collapse mb-3" id="filtrosCollapse">
+    <div class="card card-body">
+        <!-- Formulário de filtro existente -->
+        <form method="get" class="mb-3">
+            <div class="row">
+                <div class="col-md-4">
+                    {{ filter.form.pessoa_visita.label_tag }}
+                    {{ filter.form.pessoa_visita }}
+                </div>
+                <div class="col-md-4">
+                    {{ filter.form.pessoa_visitada.label_tag }}
+                    {{ filter.form.pessoa_visitada }}
+                </div>
+                <div class="col-md-4">
+                    {{ filter.form.data_hora_entrada.label_tag }}
+                    {{ filter.form.data_hora_entrada }}
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12 text-right">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                    <a href="{% url 'list-visita' %}" class="btn btn-secondary">Limpar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="text-right mb-3">
     <a href="{% url 'add-visita' %}" class="btn btn-primary">Cadastrar Nova Visita</a>
 </div>
+
 <div class="table-responsive mt-4">
     <table class="table table-striped" id="tabela-visitas">
         <thead>
             <tr>
-                <th>Pessoa que Visita</th>
-                <th>Pessoa Visitada</th>
+                <th>Visitante</th>
+                <th>Morador Visitado</th>
                 <th>Motivo</th>
-                <th>Data e Hora de Entrada</th>
-                <th>Data e Hora de Saída</th>
-                <th>Por</th>
+                <th>Entrada</th>
+                <th>Saída</th>
                 <th>Opções</th>
             </tr>
         </thead>
@@ -28,9 +63,8 @@
             <td>{{ visita.pessoa_visita }}</td>
             <td>{{ visita.pessoa_visitada }}</td>
             <td>{{ visita.motivo }}</td>
-            <td>{{ visita.data_hora_entrada }}</td>
-            <td>{{ visita.data_hora_saida }}</td>
-            <td>{{ visita.user }}</td>
+            <td>{{ visita.data_hora_entrada|date:"d/m/Y H:i" }}</td>
+            <td>{{ visita.data_hora_saida|date:"d/m/Y H:i"|default:"" }}</td>
             <td>
                 <a href="{% url 'update-visita' visita.pk %}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                 <a href="{% url 'delete-visita' visita.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
@@ -38,7 +72,6 @@
         </tr>
         {% empty %}
         <tr class="d-none">
-            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -77,18 +110,12 @@
                     "last": "Último",
                     "next": "Seguinte",
                     "previous": "Anterior"
-                },
-                "aria": {
-                    // Continue com o restante da configuração
                 }
             }
         });
 
-        // Adiciona uma linha vazia se a tabela estiver vazia
         if (!table.data().any()) {
-            table.row.add([
-                '', '', '', '', '', '', ''
-            ]).draw();
+            table.row.add(['', '', '', '', '', '']).draw();
         }
     });
 </script>

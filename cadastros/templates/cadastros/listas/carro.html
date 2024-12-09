@@ -6,6 +6,39 @@
 <div style="margin-top: 80px;"></div>
 <h3>Lista de carros registrados</h3>
 <hr>
+
+<!-- Botão de toggle para filtros -->
+<button class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#filtrosCollapse" aria-expanded="false" aria-controls="filtrosCollapse">
+    <i class="fas fa-filter"></i> Mostrar Filtros
+</button>
+
+<!-- Filtros em collapse -->
+<div class="collapse mb-3" id="filtrosCollapse">
+    <div class="card card-body">
+        <!-- Formulário de filtro existente -->
+        <form method="get" class="mb-3">
+            <div class="row">
+                <div class="col-md-3">
+                    {{ filter.form.placa.label_tag }}
+                    {{ filter.form.placa }}
+                </div>
+                <div class="col-md-3">
+                    {{ filter.form.modelo.label_tag }}
+                    {{ filter.form.modelo }}
+                </div>
+                <div class="col-md-3">
+                    {{ filter.form.cor.label_tag }}
+                    {{ filter.form.cor }}
+                </div>
+                <div class="col-md-3 align-self-end">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                    <a href="{% url 'list-carro' %}" class="btn btn-secondary">Limpar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="text-right mb-3">
     <a href="{% url 'add-carro' %}" class="btn btn-primary">Cadastrar Novo Carro</a>
 </div>
@@ -73,7 +106,7 @@
                     "previous": "Anterior"
                 },
                 "aria": {
-                    // Continue com o restante da configuração
+                    // Continue com o restante da configura��ão
                 }
             }
         });

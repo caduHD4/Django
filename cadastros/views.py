@@ -6,13 +6,21 @@ from .models import Cidade, Pessoa, Carro, Morador, Porteiro, Visita, Apartament
 from django.contrib.auth.mixins import LoginRequiredMixin
 from braces.views import GroupRequiredMixin # type: ignore
 
-class CidadeCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+from django_filters.views import FilterView
+from .filters import CidadeFilter, PessoaFilter, CarroFilter, MoradorFilter, PorteiroFilter, VisitaFilter, ApartamentoFilter
+
+from django.contrib.messages.views import SuccessMessageMixin
+
+
+
+class CidadeCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessMessageMixin):
     model = Cidade
     fields = ['nome', 'estado']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-cidade')
     login_url = reverse_lazy('login')
     group_required = "Administrador"
+    success_message = "Cidade %(nome)s adicionada com sucesso!"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -21,13 +29,14 @@ class CidadeCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
         context['botao'] = 'Cadastrar Cidade'
         return context
 
-class PessoaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+class PessoaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessMessageMixin):
     model = Pessoa
     fields = ['nome_completo', 'nascimento', 'cpf', 'email', 'cidade', 'arquivo']
     template_name = 'cadastros/form-upload.html'
     success_url = reverse_lazy('list-pessoa')
     login_url = reverse_lazy('login')
     group_required = "Administrador"
+    success_message = "Pessoa %(nome_completo)s adicionada com sucesso!"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -36,13 +45,14 @@ class PessoaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
         context['botao'] = 'Cadastrar Pessoa'
         return context
 
-class CarroCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+class CarroCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessMessageMixin):
     model = Carro
     fields = ['placa', 'modelo', 'cor', 'apartamento']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-carro')
     login_url = reverse_lazy('login')
     group_required = "Administrador"
+    success_message = "Carro %(placa)s adicionado com sucesso!"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -51,13 +61,14 @@ class CarroCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
         context['botao'] = 'Cadastrar Carro'
         return context
 
-class MoradorCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+class MoradorCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessMessageMixin):
     model = Morador
     fields = ['nome_completo', 'nascimento', 'cpf', 'email', 'cidade', 'apartamento', 'possui_animais']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-morador')
     login_url = reverse_lazy('login')
     group_required = "Administrador"
+    success_message = "Morador %(nome_completo)s adicionado com sucesso!"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -66,13 +77,14 @@ class MoradorCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
         context['botao'] = 'Cadastrar Morador'
         return context
 
-class PorteiroCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+class PorteiroCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessMessageMixin):
     model = Porteiro
     fields = ['nome', 'turno']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-porteiro')
     login_url = reverse_lazy('login')
     group_required = "Administrador"
+    success_message = "Porteiro %(nome)s adicionado com sucesso!"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -81,13 +93,14 @@ class PorteiroCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
         context['botao'] = 'Cadastrar Porteiro'
         return context
 
-class VisitaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+class VisitaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessMessageMixin):
     model = Visita
     fields = ['pessoa_visita', 'pessoa_visitada', 'motivo', 'data_hora_entrada', 'data_hora_saida']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-visita')
     login_url = reverse_lazy('login')
     group_required = "Administrador", "Usuarios"
+    success_message = "Visita para %(pessoa_visitada)s adicionada com sucesso!"
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -102,13 +115,14 @@ class VisitaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
         context['botao'] = 'Cadastrar Visita'
         return context
 
-class ApartamentoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+class ApartamentoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView, SuccessMessageMixin):
     model = Apartamento
     fields = ['numero', 'bloco']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('list-apartamento')
     login_url = reverse_lazy('login')
     group_required = "Administrador"
+    success_message = "Apartamento %(numero)s adicionado com sucesso!"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -291,47 +305,47 @@ class ApartamentoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
 
 #######LISTA#######
 
-class CidadeList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+class CidadeList(GroupRequiredMixin, LoginRequiredMixin, FilterView):
     model = Cidade
+    filterset_class = CidadeFilter
     template_name = 'cadastros/listas/cidade.html'
-    context_object_name = 'cidades'
     login_url = reverse_lazy('login')
-    group_required = "Administrador", "Usuarios"
+    group_required = ("Administrador", "Usuarios")
 
-class PessoaList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+class PessoaList(GroupRequiredMixin, LoginRequiredMixin, FilterView):
     model = Pessoa
+    filterset_class = PessoaFilter
     template_name = 'cadastros/listas/pessoa.html'
-    context_object_name = 'pessoas'
     login_url = reverse_lazy('login')
-    group_required = "Administrador", "Usuarios"
+    group_required = ("Administrador", "Usuarios")
 
-class CarroList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+class CarroList(GroupRequiredMixin, LoginRequiredMixin, FilterView):
     model = Carro
+    filterset_class = CarroFilter
     template_name = 'cadastros/listas/carro.html'
-    context_object_name = 'carros'
     login_url = reverse_lazy('login')
-    group_required = "Administrador", "Usuarios"
+    group_required = ("Administrador", "Usuarios")
 
-class MoradorList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+class MoradorList(GroupRequiredMixin, LoginRequiredMixin, FilterView):
     model = Morador
+    filterset_class = MoradorFilter
     template_name = 'cadastros/listas/morador.html'
-    context_object_name = 'moradores'
     login_url = reverse_lazy('login')
-    group_required = "Administrador", "Usuarios"
+    group_required = ("Administrador", "Usuarios")
 
-class PorteiroList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+class PorteiroList(GroupRequiredMixin, LoginRequiredMixin, FilterView):
     model = Porteiro
+    filterset_class = PorteiroFilter
     template_name = 'cadastros/listas/porteiro.html'
-    context_object_name = 'porteiros'
     login_url = reverse_lazy('login')
-    group_required = "Administrador", "Usuarios"
+    group_required = ("Administrador", "Usuarios")
 
-class VisitaList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+class VisitaList(GroupRequiredMixin, LoginRequiredMixin, FilterView):
     model = Visita
+    filterset_class = VisitaFilter
     template_name = 'cadastros/listas/visita.html'
-    context_object_name = 'visitas'
     login_url = reverse_lazy('login')
-    group_required = "Administrador", "Usuarios"
+    group_required = ("Administrador", "Usuarios")
 
     #Lista apenas as visitas do usuario logado, exibe todas as visitas para o grupo Administrador
     def get_queryset(self):
@@ -339,9 +353,10 @@ class VisitaList(GroupRequiredMixin, LoginRequiredMixin, ListView):
             return Visita.objects.all()
         return Visita.objects.filter(user=self.request.user)
 
-class ApartamentoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+class ApartamentoList(GroupRequiredMixin, LoginRequiredMixin, FilterView):
     model = Apartamento
+    filterset_class = ApartamentoFilter
     template_name = 'cadastros/listas/apartamento.html'
-    context_object_name = 'apartamentos'
     login_url = reverse_lazy('login')
-    group_required = "Administrador", "Usuarios"
+    group_required = ("Administrador", "Usuarios")
+

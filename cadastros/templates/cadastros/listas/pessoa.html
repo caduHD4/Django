@@ -6,6 +6,45 @@
 <div style="margin-top: 80px;"></div>
 <h3>Lista de pessoas registradas</h3>
 <hr>
+
+<!-- Botão de toggle para filtros -->
+<button class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#filtrosCollapse" aria-expanded="false" aria-controls="filtrosCollapse">
+    <i class="fas fa-filter"></i> Mostrar Filtros
+</button>
+
+<!-- Filtros em collapse -->
+<div class="collapse mb-3" id="filtrosCollapse">
+    <div class="card card-body">
+        <!-- Formulário de filtro existente -->
+        <form method="get" class="mb-3">
+            <div class="row">
+                <div class="col-md-3">
+                    {{ filter.form.nome_completo.label_tag }}
+                    {{ filter.form.nome_completo }}
+                </div>
+                <div class="col-md-3">
+                    {{ filter.form.cpf.label_tag }}
+                    {{ filter.form.cpf }}
+                </div>
+                <div class="col-md-3">
+                    {{ filter.form.email.label_tag }}
+                    {{ filter.form.email }}
+                </div>
+                <div class="col-md-3 align-self-end">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                    <a href="{% url 'list-pessoa' %}" class="btn btn-secondary">Limpar</a>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-3">
+                    {{ filter.form.cidade.label_tag }}
+                    {{ filter.form.cidade }}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="text-right mb-3">
     <a href="{% url 'add-pessoa' %}" class="btn btn-primary">Cadastrar Nova Pessoa</a>
 </div>

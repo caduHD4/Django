@@ -5,41 +5,91 @@
 {% block header %}{% endblock %}
 
 {% block content %}
-<div style="margin-top: 80px;"></div>
-<h3>Lista de cidades registradas</h3>
-<hr>
-<div class="text-right mb-3">
-    <a href="{% url 'add-cidade' %}" class="btn btn-primary">Cadastrar Nova Cidade</a>
-</div>
-<div class="table-responsive mt-4">
-    <table class="table table-striped" id="tabela-cidades">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Estado</th>
-                <th>Opções</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for cidade in object_list %}
-        <tr>
-            <td>{{ cidade.nome }}</td>
-            <td>{{ cidade.estado }}</td>
-            <td>
-                <a href="{% url 'update-cidade' cidade.pk %}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-                <a href="{% url 'delete-cidade' cidade.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr class="d-none">
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+<main class="container">
+    <section class="mt-5">
+        <h1 class="h3">Lista de cidades registradas</h1>
+        <hr>
+
+        <!-- Botão de toggle para filtros -->
+        <button class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#filtrosCollapse" aria-expanded="false" aria-controls="filtrosCollapse">
+            <i class="fas fa-filter"></i> Mostrar Filtros
+        </button>
+
+        <!-- Filtros em collapse -->
+        <div class="collapse mb-3" id="filtrosCollapse">
+            <div class="card card-body">
+                <form method="get" aria-label="Formulário de filtro">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label" for="{{ filter.form.nome.id_for_label }}">
+                                {{ filter.form.nome.label }}
+                            </label>
+                            {{ filter.form.nome }}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label" for="{{ filter.form.estado.id_for_label }}">
+                                {{ filter.form.estado.label }}
+                            </label>
+                            {{ filter.form.estado }}
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary me-2">Filtrar</button>
+                            <a href="{% url 'list-cidade' %}" class="btn btn-secondary">Limpar</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <section class="acoes-section">
+            <div class="d-flex justify-content-end mb-3">
+                <a href="{% url 'add-cidade' %}" class="btn btn-primary" role="button">
+                    Cadastrar Nova Cidade
+                </a>
+            </div>
+        </section>
+
+        <section class="tabela-section">
+            <div class="table-responsive">
+                <table class="table table-striped" id="tabela-cidades">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for cidade in object_list %}
+                        <tr>
+                            <td>{{ cidade.nome }}</td>
+                            <td>{{ cidade.estado }}</td>
+                            <td>
+                                <a href="{% url 'update-cidade' cidade.pk %}" 
+                                   class="btn btn-warning btn-sm" 
+                                   aria-label="Editar cidade">
+                                    <i class="fas fa-edit" aria-hidden="true"></i>
+                                </a>
+                                <a href="{% url 'delete-cidade' cidade.pk %}" 
+                                   class="btn btn-danger btn-sm" 
+                                   aria-label="Excluir cidade">
+                                    <i class="fas fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr class="d-none">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+</main>
 {% endblock %}
 
 {% block scripts %}
